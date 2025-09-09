@@ -18,7 +18,7 @@ public class CompanyLogic
     {
         try
         {
-            // Implementation to get companies from Tally
+            var context = _httpContextAccessor.HttpContext;
             var companies = await _tallyService.GetCompaniesAsync();
             return companies?.Cast<object>() ?? new List<object>();
         }
@@ -52,7 +52,7 @@ public class CompanyLogic
             if (!string.IsNullOrEmpty(selectedCompanyId))
             {
                 // You may need to update TallyService to support company selection
-                return await _tallyService.GetCompanyInfoAsync(selectedCompanyId);
+                return await _tallyService.GetCompanyInfoAsync();
             }
             // Fallback to license info
             return await _tallyService.GetLicenseInfoAsync();

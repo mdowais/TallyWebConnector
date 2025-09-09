@@ -16,8 +16,11 @@ public class StockGroupLogic
     {
         try
         {
-            // Implementation to get stock groups from Tally
-            var stockGroups = await _tallyService.GetStockGroupsAsync();
+            var context = _httpContextAccessor.HttpContext;
+            var selectedCompanyId = Context.CompanyContextAccessor.GetSelectedCompanyId(context!);
+            var stockGroups = selectedCompanyId != null
+                ? await _tallyService.GetStockGroupsAsync(selectedCompanyId)
+                : await _tallyService.GetStockGroupsAsync();
             return stockGroups?.Cast<object>() ?? new List<object>();
         }
         catch

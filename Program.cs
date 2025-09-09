@@ -47,7 +47,10 @@ namespace TallyWebConnector
                 return new TallyService(host, port);
             });
 
-            // Register business logic services
+            // Register IHttpContextAccessor for company context
+            builder.Services.AddHttpContextAccessor();
+
+            // Register business logic services with IHttpContextAccessor
             builder.Services.AddScoped<VoucherLogic>();
             builder.Services.AddScoped<LedgerLogic>();
             builder.Services.AddScoped<StockItemLogic>();

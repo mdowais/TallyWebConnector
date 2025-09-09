@@ -6,20 +6,25 @@ namespace TallyWebConnector.Services;
 public class ReportLogic
 {
     private readonly TallyService _tallyService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public ReportLogic(TallyService tallyService)
+    public ReportLogic(TallyService tallyService, IHttpContextAccessor httpContextAccessor)
     {
         _tallyService = tallyService;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<object?> GetBalanceSheetAsync(DateTime? asOnDate = null)
     {
         try
         {
-            // Implementation to get Balance Sheet from Tally
+            // Use selected company from context if available
+            var context = _httpContextAccessor.HttpContext;
+            var selectedCompanyId = Context.CompanyContextAccessor.GetSelectedCompanyId(context!);
             var date = asOnDate ?? DateTime.Now;
+            // TODO: Pass selectedCompanyId to TallyConnector if supported
             // Placeholder implementation - in real scenario would use TallyConnector's report methods
-            return await Task.FromResult(new { ReportType = "BalanceSheet", AsOnDate = date, Data = "Balance Sheet data would be here" });
+            return await Task.FromResult(new { ReportType = "BalanceSheet", AsOnDate = date, CompanyId = selectedCompanyId, Data = "Balance Sheet data would be here" });
         }
         catch
         {
