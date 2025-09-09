@@ -16,11 +16,8 @@ public class StockItemLogic
     {
         try
         {
-            var context = _httpContextAccessor.HttpContext;
-            var selectedCompanyId = Context.CompanyContextAccessor.GetSelectedCompanyId(context!);
-            var stockItems = selectedCompanyId != null
-                ? await _tallyService.GetStockItemsAsync(selectedCompanyId)
-                : await _tallyService.GetStockItemsAsync();
+            // Implementation to get stock items from Tally
+            var stockItems = await _tallyService.GetStockItemsAsync();
             return stockItems?.Cast<object>() ?? new List<object>();
         }
         catch

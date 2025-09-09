@@ -11,13 +11,6 @@ public class GstLogic
     {
         _tallyService = tallyService;
     }
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public GstLogic(TallyService tallyService, IHttpContextAccessor httpContextAccessor)
-        {
-            _tallyService = tallyService;
-            _httpContextAccessor = httpContextAccessor;
-        }
 
     public async Task<IEnumerable<object>> GetGstReportsAsync()
     {
@@ -25,10 +18,7 @@ public class GstLogic
         return await Task.FromResult(new List<object>());
     }
 
-        // Use selected company from context if available
-        var context = _httpContextAccessor.HttpContext;
-        var selectedCompanyId = Context.CompanyContextAccessor.GetSelectedCompanyId(context!);
-        // TODO: Pass selectedCompanyId to TallyConnector if supported
+    public async Task<IEnumerable<object>> GetGstReturnsAsync()
     {
         // Implementation to get GST returns
         return await Task.FromResult(new List<object>());

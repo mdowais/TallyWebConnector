@@ -6,24 +6,20 @@ namespace TallyWebConnector.Services;
 public class EditLogLogic
 {
     private readonly TallyService _tallyService;
-    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public EditLogLogic(TallyService tallyService, IHttpContextAccessor httpContextAccessor)
+    public EditLogLogic(TallyService tallyService)
     {
         _tallyService = tallyService;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<IEnumerable<object>> GetEditLogAsync(DateTime? fromDate = null, DateTime? toDate = null)
     {
-    // Use selected company from context if available
-    var context = _httpContextAccessor.HttpContext;
-    var selectedCompanyId = Context.CompanyContextAccessor.GetSelectedCompanyId(context!);
-    var from = fromDate ?? DateTime.Now.AddDays(-30);
-    var to = toDate ?? DateTime.Now;
-    // TODO: Pass selectedCompanyId to TallyConnector if supported
-    // This would typically query Tally's audit trail or change log
-    return await Task.FromResult(new List<object>());
+        // Implementation to get edit log from Tally
+        var from = fromDate ?? DateTime.Now.AddDays(-30);
+        var to = toDate ?? DateTime.Now;
+        
+        // This would typically query Tally's audit trail or change log
+        return await Task.FromResult(new List<object>());
     }
 
     public async Task<object?> GetEditLogByEntityAsync(string entityType, string entityId)

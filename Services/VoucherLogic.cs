@@ -16,12 +16,8 @@ public class VoucherLogic
     {
         try
         {
-            var context = _httpContextAccessor.HttpContext;
-            var selectedCompanyId = Context.CompanyContextAccessor.GetSelectedCompanyId(context!);
-            // If TallyConnector supports company selection:
-            var vouchers = selectedCompanyId != null
-                ? await _tallyService.GetVouchersAsync(selectedCompanyId)
-                : await _tallyService.GetVouchersAsync();
+            // Implementation to get vouchers from Tally
+            var vouchers = await _tallyService.GetVouchersAsync();
             return vouchers?.Cast<object>() ?? new List<object>();
         }
         catch
