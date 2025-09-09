@@ -8,24 +8,24 @@ namespace TallyWebConnector.Controllers;
 [Tags("Groups")]
 public class GroupsController : ControllerBase
 {
-    private readonly GroupService _groupService;
+    private readonly GroupLogic _groupLogic;
 
-    public GroupsController(GroupService groupService)
+    public GroupsController(GroupLogic groupLogic)
     {
-        _groupService = groupService;
+        _groupLogic = groupLogic;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetGroups()
     {
-        var result = await _groupService.GetGroupsAsync();
+        var result = await _groupLogic.GetGroupsAsync();
         return Ok(result);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetGroupById(string id)
     {
-        var result = await _groupService.GetGroupByIdAsync(id);
+        var result = await _groupLogic.GetGroupByIdAsync(id);
         return Ok(result);
     }
 }

@@ -12,7 +12,31 @@ namespace TallyWebConnector
             // Add services to the container
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("ApiKey", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    Description = "API Key needed to access the endpoints. X-Api-Key: {apiKey}",
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Name = "X-Api-Key",
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+                    Scheme = "ApiKeyScheme"
+                });
+                c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                {
+                    {
+                        new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                        {
+                            Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                            {
+                                Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                                Id = "ApiKey"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
 
             // Configure TallyService with settings from configuration
             builder.Services.AddScoped<TallyService>(provider =>
@@ -24,18 +48,18 @@ namespace TallyWebConnector
             });
 
             // Register business logic services
-            builder.Services.AddScoped<VoucherService>();
-            builder.Services.AddScoped<LedgerService>();
-            builder.Services.AddScoped<StockItemService>();
-            builder.Services.AddScoped<StockGroupService>();
-            builder.Services.AddScoped<CompanyService>();
-            builder.Services.AddScoped<GroupService>();
-            builder.Services.AddScoped<GodownService>();
-            builder.Services.AddScoped<UnitService>();
-            builder.Services.AddScoped<GstService>();
-            builder.Services.AddScoped<TdsService>();
-            builder.Services.AddScoped<ReportService>();
-            builder.Services.AddScoped<EditLogService>();
+            builder.Services.AddScoped<VoucherLogic>();
+            builder.Services.AddScoped<LedgerLogic>();
+            builder.Services.AddScoped<StockItemLogic>();
+            builder.Services.AddScoped<StockGroupLogic>();
+            builder.Services.AddScoped<CompanyLogic>();
+            builder.Services.AddScoped<GroupLogic>();
+            builder.Services.AddScoped<GodownLogic>();
+            builder.Services.AddScoped<UnitLogic>();
+            builder.Services.AddScoped<GstLogic>();
+            builder.Services.AddScoped<TdsLogic>();
+            builder.Services.AddScoped<ReportLogic>();
+            builder.Services.AddScoped<EditLogLogic>();
 
             var app = builder.Build();
 
@@ -47,6 +71,12 @@ namespace TallyWebConnector
             }
 
             app.UseHttpsRedirection();
+
+            // API Key Authentication
+            app.UseMiddleware<ApiKeyMiddleware>();
+
+            // Company Selection Middleware
+            app.UseMiddleware<TallyWebConnector.Middleware.CompanySelectionMiddleware>();
 
             // Map controllers
             app.MapControllers();

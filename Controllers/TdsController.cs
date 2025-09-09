@@ -8,9 +8,9 @@ namespace TallyWebConnector.Controllers;
 [Tags("TDS")]
 public class TdsController : ControllerBase
 {
-    private readonly TdsService _tdsService;
+    private readonly TdsLogic _tdsService;
 
-    public TdsController(TdsService tdsService)
+    public TdsController(TdsLogic tdsService)
     {
         _tdsService = tdsService;
     }

@@ -3,11 +3,11 @@ using TallyConnector.Core.Models;
 
 namespace TallyWebConnector.Services;
 
-public class GodownService
+public class GodownLogic
 {
     private readonly TallyService _tallyService;
 
-    public GodownService(TallyService tallyService)
+    public GodownLogic(TallyService tallyService)
     {
         _tallyService = tallyService;
     }

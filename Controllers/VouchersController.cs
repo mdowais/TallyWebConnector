@@ -8,9 +8,9 @@ namespace TallyWebConnector.Controllers;
 [Tags("Vouchers")]
 public class VouchersController : ControllerBase
 {
-    private readonly VoucherService _voucherService;
+    private readonly VoucherLogic _voucherService;
 
-    public VouchersController(VoucherService voucherService)
+    public VouchersController(VoucherLogic voucherService)
     {
         _voucherService = voucherService;
     }
@@ -35,9 +35,9 @@ public class VouchersController : ControllerBase
 [Tags("Vouchers")]
 public class VoucherTypesController : ControllerBase
 {
-    private readonly VoucherService _voucherService;
+    private readonly VoucherLogic _voucherService;
 
-    public VoucherTypesController(VoucherService voucherService)
+    public VoucherTypesController(VoucherLogic voucherService)
     {
         _voucherService = voucherService;
     }

@@ -8,31 +8,31 @@ namespace TallyWebConnector.Controllers;
 [Tags("Companies")]
 public class CompaniesController : ControllerBase
 {
-    private readonly CompanyService _companyService;
+    private readonly CompanyLogic _companyLogic;
 
-    public CompaniesController(CompanyService companyService)
+    public CompaniesController(CompanyLogic companyLogic)
     {
-        _companyService = companyService;
+        _companyLogic = companyLogic;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetCompanies()
     {
-        var result = await _companyService.GetCompaniesAsync();
+        var result = await _companyLogic.GetCompaniesAsync();
         return Ok(result);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCompanyById(string id)
     {
-        var result = await _companyService.GetCompanyByIdAsync(id);
+        var result = await _companyLogic.GetCompanyByIdAsync(id);
         return Ok(result);
     }
 
     [HttpGet("current")]
     public async Task<IActionResult> GetCurrentCompany()
     {
-        var result = await _companyService.GetCurrentCompanyAsync();
+        var result = await _companyLogic.GetCurrentCompanyAsync();
         return Ok(result);
     }
 }

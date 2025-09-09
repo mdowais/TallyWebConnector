@@ -8,9 +8,9 @@ namespace TallyWebConnector.Controllers;
 [Tags("Stock Items")]
 public class StockItemsController : ControllerBase
 {
-    private readonly StockItemService _stockItemService;
+    private readonly StockItemLogic _stockItemService;
 
-    public StockItemsController(StockItemService stockItemService)
+    public StockItemsController(StockItemLogic stockItemService)
     {
         _stockItemService = stockItemService;
     }

@@ -8,24 +8,24 @@ namespace TallyWebConnector.Controllers;
 [Tags("Stock Groups")]
 public class StockGroupsController : ControllerBase
 {
-    private readonly StockGroupService _stockGroupService;
+    private readonly StockGroupLogic _stockGroupLogic;
 
-    public StockGroupsController(StockGroupService stockGroupService)
+    public StockGroupsController(StockGroupLogic stockGroupLogic)
     {
-        _stockGroupService = stockGroupService;
+        _stockGroupLogic = stockGroupLogic;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetStockGroups()
     {
-        var result = await _stockGroupService.GetStockGroupsAsync();
+        var result = await _stockGroupLogic.GetStockGroupsAsync();
         return Ok(result);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetStockGroupById(string id)
     {
-        var result = await _stockGroupService.GetStockGroupByIdAsync(id);
+        var result = await _stockGroupLogic.GetStockGroupByIdAsync(id);
         return Ok(result);
     }
 }

@@ -8,38 +8,38 @@ namespace TallyWebConnector.Controllers;
 [Tags("GST")]
 public class GstController : ControllerBase
 {
-    private readonly GstService _gstService;
+    private readonly GstLogic _gstLogic;
 
-    public GstController(GstService gstService)
+    public GstController(GstLogic gstLogic)
     {
-        _gstService = gstService;
+        _gstLogic = gstLogic;
     }
 
     [HttpGet("reports")]
     public async Task<IActionResult> GetGstReports()
     {
-        var result = await _gstService.GetGstReportsAsync();
+        var result = await _gstLogic.GetGstReportsAsync();
         return Ok(result);
     }
 
     [HttpGet("returns")]
     public async Task<IActionResult> GetGstReturns()
     {
-        var result = await _gstService.GetGstReturnsAsync();
+        var result = await _gstLogic.GetGstReturnsAsync();
         return Ok(result);
     }
 
     [HttpGet("gstr1")]
     public async Task<IActionResult> GetGstr1([FromQuery] DateTime fromDate, [FromQuery] DateTime toDate)
     {
-        var result = await _gstService.GetGstr1Async(fromDate, toDate);
+        var result = await _gstLogic.GetGstr1Async(fromDate, toDate);
         return Ok(result);
     }
 
     [HttpGet("gstr3b")]
     public async Task<IActionResult> GetGstr3b([FromQuery] DateTime fromDate, [FromQuery] DateTime toDate)
     {
-        var result = await _gstService.GetGstr3bAsync(fromDate, toDate);
+        var result = await _gstLogic.GetGstr3bAsync(fromDate, toDate);
         return Ok(result);
     }
 }

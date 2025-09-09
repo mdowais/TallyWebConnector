@@ -8,24 +8,24 @@ namespace TallyWebConnector.Controllers;
 [Tags("Godowns")]
 public class GodownsController : ControllerBase
 {
-    private readonly GodownService _godownService;
+    private readonly GodownLogic _godownLogic;
 
-    public GodownsController(GodownService godownService)
+    public GodownsController(GodownLogic godownLogic)
     {
-        _godownService = godownService;
+        _godownLogic = godownLogic;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetGodowns()
     {
-        var result = await _godownService.GetGodownsAsync();
+        var result = await _godownLogic.GetGodownsAsync();
         return Ok(result);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetGodownById(string id)
     {
-        var result = await _godownService.GetGodownByIdAsync(id);
+        var result = await _godownLogic.GetGodownByIdAsync(id);
         return Ok(result);
     }
 }

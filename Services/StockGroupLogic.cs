@@ -3,11 +3,11 @@ using TallyConnector.Core.Models;
 
 namespace TallyWebConnector.Services;
 
-public class StockGroupService
+public class StockGroupLogic
 {
     private readonly TallyService _tallyService;
 
-    public StockGroupService(TallyService tallyService)
+    public StockGroupLogic(TallyService tallyService)
     {
         _tallyService = tallyService;
     }

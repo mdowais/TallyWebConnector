@@ -8,9 +8,9 @@ namespace TallyWebConnector.Controllers;
 [Tags("Units")]
 public class UnitsController : ControllerBase
 {
-    private readonly UnitService _unitService;
+    private readonly UnitLogic _unitService;
 
-    public UnitsController(UnitService unitService)
+    public UnitsController(UnitLogic unitService)
     {
         _unitService = unitService;
     }

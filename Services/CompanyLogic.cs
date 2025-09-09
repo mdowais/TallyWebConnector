@@ -3,13 +3,15 @@ using TallyConnector.Core.Models;
 
 namespace TallyWebConnector.Services;
 
-public class CompanyService
+public class CompanyLogic
 {
     private readonly TallyService _tallyService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public CompanyService(TallyService tallyService)
+    public CompanyLogic(TallyService tallyService, IHttpContextAccessor httpContextAccessor)
     {
         _tallyService = tallyService;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<IEnumerable<object>> GetCompaniesAsync()
@@ -44,7 +46,15 @@ public class CompanyService
     {
         try
         {
-            // Implementation to get current active company
+            // Use selected company from context if available
+            var context = _httpContextAccessor.HttpContext;
+            var selectedCompanyId = Context.CompanyContextAccessor.GetSelectedCompanyId(context!);
+            if (!string.IsNullOrEmpty(selectedCompanyId))
+            {
+                // You may need to update TallyService to support company selection
+                return await _tallyService.GetCompanyInfoAsync(selectedCompanyId);
+            }
+            // Fallback to license info
             return await _tallyService.GetLicenseInfoAsync();
         }
         catch

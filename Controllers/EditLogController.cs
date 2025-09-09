@@ -8,31 +8,31 @@ namespace TallyWebConnector.Controllers;
 [Tags("Edit Log")]
 public class EditLogController : ControllerBase
 {
-    private readonly EditLogService _editLogService;
+    private readonly EditLogLogic _editLogLogic;
 
-    public EditLogController(EditLogService editLogService)
+    public EditLogController(EditLogLogic editLogLogic)
     {
-        _editLogService = editLogService;
+        _editLogLogic = editLogLogic;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetEditLog([FromQuery] DateTime? fromDate = null, [FromQuery] DateTime? toDate = null)
     {
-        var result = await _editLogService.GetEditLogAsync(fromDate, toDate);
+        var result = await _editLogLogic.GetEditLogAsync(fromDate, toDate);
         return Ok(result);
     }
 
     [HttpGet("{entityType}/{entityId}")]
     public async Task<IActionResult> GetEditLogByEntity(string entityType, string entityId)
     {
-        var result = await _editLogService.GetEditLogByEntityAsync(entityType, entityId);
+        var result = await _editLogLogic.GetEditLogByEntityAsync(entityType, entityId);
         return Ok(result);
     }
 
     [HttpGet("user-activity")]
     public async Task<IActionResult> GetUserActivity([FromQuery] string? userId = null)
     {
-        var result = await _editLogService.GetUserActivityAsync(userId);
+        var result = await _editLogLogic.GetUserActivityAsync(userId);
         return Ok(result);
     }
 }
