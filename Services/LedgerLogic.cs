@@ -28,8 +28,10 @@ public class LedgerLogic
 
     public async Task<object?> GetLedgerByIdAsync(string ledgerId)
     {
+        var request = new MasterRequestOptions();
+        request.LookupField = MasterLookupField.GUID;
         // Implementation to get specific ledger
-        return await _tallyService.GetLedgerAsync(ledgerId);
+        return await _tallyService.GetLedgerAsync(ledgerId, request);
     }
 
     public async Task<IEnumerable<object>> GetLedgerBalanceAsync(string ledgerId)
@@ -37,5 +39,13 @@ public class LedgerLogic
         // Implementation to get ledger balance
         // This would typically involve calling Tally's balance query
         return await Task.FromResult(new List<object>());
+    }
+    // Returns ledgers for a group
+    public async Task<IEnumerable<object>> GetLedgersByGroupIdAsync(string groupId)
+    {
+        var request = new MasterRequestOptions();
+        request.LookupField = MasterLookupField.Name;
+        
+        return new List<object>();
     }
 }

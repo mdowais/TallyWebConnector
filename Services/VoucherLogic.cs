@@ -45,4 +45,10 @@ public class VoucherLogic
         // Implementation to get specific voucher
         return await _tallyService.GetVoucherAsync(voucherId);
     }
+// Returns vouchers for a ledger
+public async Task<IEnumerable<object>> GetVouchersByLedgerIdAsync(string ledgerId)
+{
+    // TODO: Implement actual logic to fetch vouchers by ledgerId
+    return new List<object>();
+}
 }

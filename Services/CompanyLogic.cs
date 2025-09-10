@@ -6,12 +6,11 @@ namespace TallyWebConnector.Services;
 public class CompanyLogic
 {
     private readonly TallyService _tallyService;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    
 
-    public CompanyLogic(TallyService tallyService, IHttpContextAccessor httpContextAccessor)
+    public CompanyLogic(TallyService tallyService)
     {
         _tallyService = tallyService;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<IEnumerable<object>> GetCompaniesAsync()
@@ -34,7 +33,7 @@ public class CompanyLogic
         {
             // Implementation to get specific company
             var companies = await _tallyService.GetCompaniesAsync();
-            return companies?.FirstOrDefault(c => c.Name == companyId);
+            return companies?.FirstOrDefault(c => c.GUID == companyId);
         }
         catch
         {
@@ -42,24 +41,5 @@ public class CompanyLogic
         }
     }
 
-    public async Task<object?> GetCurrentCompanyAsync()
-    {
-        try
-        {
-            // Use selected company from context if available
-            var context = _httpContextAccessor.HttpContext;
-            var selectedCompanyId = Context.CompanyContextAccessor.GetSelectedCompanyId(context!);
-            if (!string.IsNullOrEmpty(selectedCompanyId))
-            {
-                // You may need to update TallyService to support company selection
-                return await _tallyService.GetCompanyInfoAsync(selectedCompanyId);
-            }
-            // Fallback to license info
-            return await _tallyService.GetLicenseInfoAsync();
-        }
-        catch
-        {
-            return null;
-        }
-    }
+    
 }

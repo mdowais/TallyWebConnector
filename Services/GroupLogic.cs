@@ -28,7 +28,9 @@ public class GroupLogic
 
     public async Task<object?> GetGroupByIdAsync(string groupId)
     {
+        var request = new MasterRequestOptions();
+        request.LookupField = MasterLookupField.GUID;
         // Implementation to get specific group
-        return await _tallyService.GetGroupAsync(groupId);
+        return await _tallyService.GetGroupAsync(groupId, request);
     }
 }

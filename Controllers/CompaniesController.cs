@@ -29,10 +29,5 @@ public class CompaniesController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("current")]
-    public async Task<IActionResult> GetCurrentCompany()
-    {
-        var result = await _companyLogic.GetCurrentCompanyAsync();
-        return Ok(result);
-    }
+    
 }
